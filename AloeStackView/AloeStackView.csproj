@@ -60,6 +60,8 @@
     <Compile Include="Protocols\Highlightable.cs" />
     <Compile Include="Views\StackViewCell.cs" />
     <Compile Include="Views\SeparatorView.cs" />
+    <Compile Include="AloeStackViewController.cs" />
+    <Compile Include="AloeStackView.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

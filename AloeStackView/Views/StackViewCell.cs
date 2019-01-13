@@ -45,7 +45,6 @@ namespace AloeStackView.Views
 
         #endregion
 
-
         #region Open
 
         public override bool Hidden
