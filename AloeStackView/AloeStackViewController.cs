@@ -50,13 +50,16 @@ namespace AloeStackView
 
         #region Public
 
+        /// <summary>
         /// The stack view this controller manages.
+        /// </summary>
         public AloeStackView StackView = new AloeStackView();
 
+        /// <summary>
         /// When true, automatically displays the scroll indicators in the stack view momentarily whenever the view appears.
-        ///
         /// Default is `false`.
-        public bool AutomaticallyFlashScrollIndicators = false;
+        /// </summary>
+        public bool AutomaticallyFlashScrollIndicators;
 
         #endregion
     }

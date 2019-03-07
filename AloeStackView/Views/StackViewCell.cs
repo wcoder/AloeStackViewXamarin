@@ -171,7 +171,7 @@ namespace AloeStackView.Views
         // reflect whether the separator is hidden or not, since, for example, the separator could be
         // hidden because it's the last row in the stack view and
         // `automaticallyHidesLastSeparator` is `true`.
-        public bool shouldHideSeparator;
+        public bool ShouldHideSeparator;
 
         #endregion
 

@@ -50,9 +50,11 @@ namespace AloeStackView
             InsertCell(row, stackView.ArrangedSubviews.Count(), animated);
         }
 
+        /// <summary>
         /// Adds multiple rows to the end of the stack view.
-        ///
-        /// If `animated` is `true`, the insertions are animated.
+        /// </summary>
+        /// <param name="rows">Rows.</param>
+        /// <param name="animated">If `animated` is `true`, the insertions are animated.</param>
         public void AddRows(UIView[] rows, bool animated = false)
         {
             foreach (var row in rows)
@@ -61,14 +63,17 @@ namespace AloeStackView
             }
         }
 
+        /// <summary>
         /// Adds a row to the beginning of the stack view.
-        ///
-        /// If `animated` is `true`, the insertion is animated.
+        /// </summary>
+        /// <param name="row">Row.</param>
+        /// <param name="animated">If `animated` is `true`, the insertion is animated.</param>
         public void PrependRow(UIView row, bool animated = false)
         {
             InsertCell(row, 0, animated);
         }
 
+        // TODO: port
         /// Adds multiple rows to the beginning of the stack view.
         ///
         /// If `animated` is `true`, the insertions are animated.
@@ -189,7 +194,11 @@ namespace AloeStackView
             return rows.ToArray();
         }
 
-        /// Returns `true` if the given row is present in the stack view, `false` otherwise.
+        /// <summary>
+        /// Containses the row.
+        /// </summary>
+        /// <returns>Returns `true` if the given row is present in the stack view, `false` otherwise.</returns>
+        /// <param name="row">Row.</param>
         public bool ContainsRow(UIView row)
         {
             if (row.Superview is StackViewCell cell)
@@ -277,7 +286,11 @@ namespace AloeStackView
             }
         }
 
-        /// Returns `true` if the given row is hidden, `false` otherwise.
+        /// <summary>
+        /// Ises the row hidden.
+        /// </summary>
+        /// <returns>Returns <c>true</c> if the given row is hidden, <c>false</c> otherwise.</returns>
+        /// <param name="row">Row.</param>
         public bool IsRowHidden(UIView row)
         {
             return (row.Superview as StackViewCell)?.Hidden ?? false;
@@ -313,16 +326,20 @@ namespace AloeStackView
 
         #region Styling Rows
 
+        /// <summary>
         /// The background color of rows in the stack view.
         ///
         /// This background color will be used for any new row that is added to the stack view.
         /// The default color is clear.
+        /// </summary>
         public UIColor RowBackgroundColor = UIColor.Clear;
 
+        /// <summary>
         /// The highlight background color of rows in the stack view.
         ///
         /// This highlight background color will be used for any new row that is added to the stack view.
         /// The default color is #D9D9D9 (RGB 217, 217, 217).
+        /// </summary>
         public UIColor RowHighlightColor = AloeStackView.defaultRowHighlightColor;
 
         /// <summary>
@@ -361,12 +378,12 @@ namespace AloeStackView
         ///
         /// The default inset is 15pt on each side and 12pt on the top and bottom.
         public UIEdgeInsets RowInset = new UIEdgeInsets(
-          top: 12,
-          left: AloeStackView.defaultSeparatorInset.Left,
-          bottom: 12,
-          // Intentional, to match the default spacing of UITableView's cell separators but balanced on
-          // each side.
-          right: AloeStackView.defaultSeparatorInset.Left);
+            top: 12,
+            left: AloeStackView.defaultSeparatorInset.Left,
+            bottom: 12,
+            // Intentional, to match the default spacing of UITableView's cell separators but balanced on
+            // each side.
+            right: AloeStackView.defaultSeparatorInset.Left);
 
         /// <summary>
         /// Sets the inset for the given row to the `UIEdgeInsets` provided.
@@ -398,10 +415,12 @@ namespace AloeStackView
 
         #region Styling Separators
 
-        /// The color of separators in the stack view.
-        ///
-        /// The default color matches the default color of separators in `UITableView`.
         private UIColor _separatorColor;
+
+        /// <summary>
+        /// The color of separators in the stack view.
+        /// </summary>
+        /// <value>The default color matches the default color of separators in `UITableView`.</value>
         public UIColor SeparatorColor
         {
             get => _separatorColor;
@@ -411,15 +430,20 @@ namespace AloeStackView
 
                 foreach (var cell in stackView.ArrangedSubviews)
                 {
-                    (cell as StackViewCell).SeparatorColor = SeparatorColor;
+                    if (cell is StackViewCell stackViewCell)
+                    {
+                        stackViewCell.SeparatorColor = SeparatorColor;
+                    }
                 }
             }
         }
 
-        /// The height of separators in the stack view.
-        ///
-        /// The default height is 1px.
         private nfloat _separatorHeight = 1;
+
+        /// <summary>
+        /// The height of separators in the stack view.
+        /// </summary>
+        /// <value>The default height is 1px.</value>
         public nfloat SeparatorHeight
         {
             get => _separatorHeight;
@@ -429,21 +453,30 @@ namespace AloeStackView
 
                 foreach (var cell in stackView.ArrangedSubviews)
                 {
-                    (cell as StackViewCell).SeparatorHeight = SeparatorHeight;
+                    if (cell is StackViewCell stackViewCell)
+                    {
+                        stackViewCell.SeparatorHeight = SeparatorHeight;
+                    }
                 }
             }
         }
 
+        /// <summary>
         /// Specifies the default inset of row separators.
         ///
         /// Only left and right insets are honored. This inset will be used for any new row that is added
         /// to the stack view. The default inset matches the default inset of cell separators in
         /// `UITableView`, which are 15pt on the left and 0pt on the right.
+        /// </summary>
         public UIEdgeInsets SeparatorInset = AloeStackView.defaultSeparatorInset;
 
+        /// <summary>
         /// Sets the separator inset for the given row to the `UIEdgeInsets` provided.
         ///
         /// Only left and right insets are honored.
+        /// </summary>
+        /// <param name="row">Row.</param>
+        /// <param name="inset">Inset.</param>
         public void SetSeperatorInset(UIView row, UIEdgeInsets inset)
         {
             if (row.Superview is StackViewCell cell)
@@ -452,9 +485,13 @@ namespace AloeStackView
             }
         }
 
+        /// <summary>
         /// Sets the separator inset for the given rows to the `UIEdgeInsets` provided.
         ///
         /// Only left and right insets are honored.
+        /// </summary>
+        /// <param name="rows">Rows.</param>
+        /// <param name="inset">Inset.</param>
         public void SetSeperatorInset(UIView[] rows, UIEdgeInsets inset)
         {
             foreach (var row in rows)
@@ -479,7 +516,7 @@ namespace AloeStackView
         {
             if (forRow.Superview is StackViewCell cell)
             {
-                cell.shouldHideSeparator = true;
+                cell.ShouldHideSeparator = true;
                 UpdateSeparatorVisibility(cell);
             }
         }
@@ -498,7 +535,7 @@ namespace AloeStackView
         {
             if (row.Superview is StackViewCell cell)
             {
-                cell.shouldHideSeparator = false;
+                cell.ShouldHideSeparator = false;
                 UpdateSeparatorVisibility(cell);
             }
         }
@@ -626,7 +663,7 @@ namespace AloeStackView
             cell.SeparatorColor = SeparatorColor;
             cell.SeparatorHeight = SeparatorHeight;
             cell.SeparatorInset = SeparatorInset;
-            cell.shouldHideSeparator = HidesSeparatorsByDefault;
+            cell.ShouldHideSeparator = HidesSeparatorsByDefault;
 
             ConfigureCell(cell);
 
@@ -708,7 +745,7 @@ namespace AloeStackView
             cell.IsSeparatorHidden =
               isLastCellAndHidingIsEnabled ||
               cellConformsToSeparatorHiding ||
-              cell.shouldHideSeparator;
+              cell.ShouldHideSeparator;
         }
 
         private StackViewCell CellAbove(StackViewCell cell)
@@ -723,7 +760,7 @@ namespace AloeStackView
             return null;
         }
 
-        private static readonly UIColor defaultRowHighlightColor = new UIColor(red: 217 / 255, green: 217 / 255, blue: 217 / 255, alpha: 1);
+        private static readonly UIColor defaultRowHighlightColor = new UIColor(red: 217 / 255f, green: 217 / 255f, blue: 217 / 255f, alpha: 1f);
         private static readonly UIColor defaultSeparatorColor = new UITableView().SeparatorColor ?? UIColor.Clear;
         private static readonly UIEdgeInsets defaultSeparatorInset = new UITableView().SeparatorInset;
 
