@@ -415,7 +415,7 @@ namespace AloeStackView
 
         #region Styling Separators
 
-        private UIColor _separatorColor;
+        private UIColor _separatorColor = AloeStackView.defaultSeparatorColor;
 
         /// <summary>
         /// The color of separators in the stack view.
@@ -438,7 +438,7 @@ namespace AloeStackView
             }
         }
 
-        private nfloat _separatorHeight = 1;
+        private nfloat _separatorHeight = 1f / UIScreen.MainScreen.Scale;
 
         /// <summary>
         /// The height of separators in the stack view.
