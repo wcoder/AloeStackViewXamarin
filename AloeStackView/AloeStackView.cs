@@ -1,10 +1,11 @@
 ﻿//
 // AloeStackView.cs
 //
-// Author:
-//       Yauheni Pakala <evgeniy.pakalo@gmail.com>
+// C# port created by Yauheni Pakala
+// Copyright (c) 2019
 //
-// Copyright (c) 2019 Yauheni Pakala
+// Original Swift version created by Marli Oshlack
+// Copyright 2018 Airbnb, Inc.
 //
 using System;
 using AloeStackView.Protocols;
@@ -17,10 +18,10 @@ using System.Collections.Generic;
 
 namespace AloeStackView
 {
-    /*
-     * A simple class for laying out a collection of views with a convenient API, while leveraging the
-     * power of Auto Layout.
-     */
+    /// <summary>
+    /// A simple class for laying out a collection of views with a convenient API, while leveraging the
+    /// power of Auto Layout.
+    /// </summary>
     public class AloeStackView : UIScrollView
     {
         #region Lifecycle
@@ -31,10 +32,7 @@ namespace AloeStackView
             setUpConstraints();
         }
 
-        public AloeStackView(NSCoder coder)
-        {
-            throw new NotImplementedException("init(coder:) has not been implemented");
-        }
+        public AloeStackView(NSCoder coder) => throw new NotImplementedException("ctor(coder:) has not been implemented");
 
         #endregion
 
@@ -42,9 +40,11 @@ namespace AloeStackView
 
         #region Adding and Removing Rows
 
+        /// <summary>
         /// Adds a row to the end of the stack view.
-        ///
-        /// If `animated` is `true`, the insertion is animated.
+        /// </summary>
+        /// <param name="row">Row</param>
+        /// <param name="animated">If `animated` is `true`, the insertion is animated.</param>
         public void addRow(UIView row, bool animated = false)
         {
             insertCell(row, stackView.ArrangedSubviews.Count(), animated);
@@ -84,8 +84,9 @@ namespace AloeStackView
         {
             if (beforeRow.Superview is StackViewCell cell)
             {
-                // TODO:
                 var index = Array.IndexOf(stackView.ArrangedSubviews, cell);
+
+                if (index < 0) return;
 
                 insertCell(row, index, animated);
             }
@@ -109,13 +110,15 @@ namespace AloeStackView
         {
             if (afterRow.Superview is StackViewCell cell)
             {
-                // TODO:
                 var index = Array.IndexOf(stackView.ArrangedSubviews, cell);
+
+                if (index < 0) return;
 
                 insertCell(row, index + 1, animated);
             }
         }
 
+        // TODO: port
         /// Inserts multiple rows below the specified row in the stack view.
         ///
         /// If `animated` is `true`, the insertions are animated.
@@ -245,7 +248,6 @@ namespace AloeStackView
         /// If `animated` is `true`, the change is animated.
         public void setRowHidden(UIView row, bool isHidden, bool animated = false)
         {
-            // TODO:
             if (row.Superview is StackViewCell cell && cell.Hidden != isHidden)
             {
                 if (animated)
@@ -285,23 +287,27 @@ namespace AloeStackView
 
         #region Handling User Interaction
 
-        /// Sets a closure that will be called when the given row in the stack view is tapped by the user.
-        ///
-        /// The handler will be passed the row.
-        /// TODO:
-        //  open func setTapHandler<RowView: UIView>(forRow row: RowView, handler: ((RowView) -> Void)?) {
-        //  guard let cell = row.superview as? StackViewCell else { return }
-
-        //  if let handler = handler {
-        //    cell.tapHandler = { contentView in
-        //      guard let contentView = contentView as? RowView else { return }
-        //      handler(contentView)
-        //    }
-        //  } else {
-        //    cell.tapHandler = nil
-        //  }
-        //}
-
+        public void setTapHandler<TRowView>(TRowView row, Action<TRowView> handler)
+            where TRowView : UIView
+        {
+            if (row.Superview is StackViewCell cell)
+            {
+                if (handler != null)
+                {
+                    cell.tapHandler = (contentView) =>
+                    { 
+                        if (contentView is TRowView view)
+                        {
+                            handler(view);
+                        }
+                    };
+                }
+                else
+                {
+                    cell.tapHandler = null;
+                }
+            }
+        }
 
         #endregion
 
@@ -319,7 +325,11 @@ namespace AloeStackView
         /// The default color is #D9D9D9 (RGB 217, 217, 217).
         public UIColor rowHighlightColor = AloeStackView.defaultRowHighlightColor;
 
+        /// <summary>
         /// Sets the background color for the given row to the `UIColor` provided.
+        /// </summary>
+        /// <param name="row">Row.</param>
+        /// <param name="color">Color.</param>
         public void setBackgroundColor(UIView row, UIColor color)
         {
             if (row.Superview is StackViewCell cell)
@@ -328,7 +338,11 @@ namespace AloeStackView
             }
         }
 
+        /// <summary>
         /// Sets the background color for the given rows to the `UIColor` provided.
+        /// </summary>
+        /// <param name="rows">Rows.</param>
+        /// <param name="color">Color.</param>
         public void setBackgroundColor(UIView[] rows, UIColor color)
         {
             foreach (var row in rows)
@@ -354,16 +368,24 @@ namespace AloeStackView
           // each side.
           right: AloeStackView.defaultSeparatorInset.Left);
 
+        /// <summary>
         /// Sets the inset for the given row to the `UIEdgeInsets` provided.
-        public void setInset(UIView row, UIEdgeInsets inset)
+        /// </summary>
+        /// <param name="forRow">Row.</param>
+        /// <param name="inset">Inset.</param>
+        public void setInset(UIView forRow, UIEdgeInsets inset)
         {
-            if (row.Superview is StackViewCell cell)
+            if (forRow.Superview is StackViewCell cell)
             {
                 cell.rowInset = inset;
             }
         }
 
+        /// <summary>
         /// Sets the inset for the given rows to the `UIEdgeInsets` provided.
+        /// </summary>
+        /// <param name="rows">Rows.</param>
+        /// <param name="inset">Inset.</param>
         public void setInset(UIView[] rows, UIEdgeInsets inset)
         {
             foreach (var row in rows)
@@ -453,9 +475,9 @@ namespace AloeStackView
         public bool hidesSeparatorsByDefault = false;
 
         /// Hides the separator for the given row.
-        public void hideSeparator(UIView row)
+        public void hideSeparator(UIView forRow)
         {
-            if (row.Superview is StackViewCell cell)
+            if (forRow.Superview is StackViewCell cell)
             {
                 cell.shouldHideSeparator = true;
                 updateSeparatorVisibility(cell);
@@ -501,7 +523,7 @@ namespace AloeStackView
             {
                 _automaticallyHidesLastSeparator = value;
 
-                if (stackView.ArrangedSubviews.Last() is StackViewCell cell)
+                if (stackView.ArrangedSubviews.LastOrDefault() is StackViewCell cell)
                 {
                     updateSeparatorVisibility(cell);
                 }
@@ -599,7 +621,7 @@ namespace AloeStackView
             var cell = cellForRow(contentView);
 
             cell.rowBackgroundColor = rowBackgroundColor;
-            //cell.rowHighlightColor = rowHighlightColor;
+            cell.rowHighlightColor = rowHighlightColor;
             cell.rowInset = rowInset;
             cell.separatorColor = separatorColor;
             cell.separatorHeight = separatorHeight;
@@ -650,21 +672,8 @@ namespace AloeStackView
         {
             var aboveCell = cellAbove(cell);
 
-            //    let completion: (Bool)->Void = { [weak self] _ in
-            //      guard let `self` = self else { return }
-            //      cell.removeFromSuperview()
-
-            //      // When removing a cell, the cell before the removed cell is the only cell whose separator
-            //      // visibility could be affected, so we need to update its visibility.
-            //      if let aboveCell = aboveCell {
-            //        self.updateSeparatorVisibility(forCell: aboveCell)
-            //      }
-            //}
-            Action<bool> completion = v =>
+            Action<bool> completion = _ =>
             {
-                // TODO:
-                if (v) return;
-
                 cell.RemoveFromSuperview();
 
                 // When removing a cell, the cell before the removed cell is the only cell whose separator
@@ -674,7 +683,6 @@ namespace AloeStackView
                     updateSeparatorVisibility(aboveCell);
                 }
             };
-
 
             if (animated)
             {
@@ -705,7 +713,6 @@ namespace AloeStackView
 
         private StackViewCell cellAbove(StackViewCell cell)
         {
-            // TODO:
             var index = Array.IndexOf(stackView.ArrangedSubviews, cell);
 
             if (index > 0)

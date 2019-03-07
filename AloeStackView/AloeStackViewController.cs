@@ -1,10 +1,11 @@
 ﻿//
 // AloeStackViewController.cs
 //
-// Author:
-//       Yauheni Pakala <evgeniy.pakalo@gmail.com>
+// C# port created by Yauheni Pakala
+// Copyright (c) 2019
 //
-// Copyright (c) 2019 Yauheni Pakala
+// Original Swift version created by Marli Oshlack
+// Copyright 2018 Airbnb, Inc.
 //
 using System;
 using Foundation;
@@ -12,21 +13,23 @@ using UIKit;
 
 namespace AloeStackView
 {
-    /*
-     * A view controller that specializes in managing an AloeStackView.
-     */
+    /// <summary>
+    /// A view controller that specializes in managing an AloeStackView.
+    /// </summary>
     public class AloeStackViewController : UIViewController
     {
+        public AloeStackViewController(IntPtr handler) : base(handler)
+        {
+            // Note: this .ctor should not contain any initialization logic.
+        }
+
         #region Lifecycle
 
         public AloeStackViewController()
         {
         }
 
-        public AloeStackViewController(NSCoder coder)
-        {
-            throw new NotImplementedException("init(coder:) has not been implemented");
-        }
+        public AloeStackViewController(NSCoder coder) => throw new NotImplementedException("ctor(coder:) has not been implemented");
 
         public override void LoadView()
         {

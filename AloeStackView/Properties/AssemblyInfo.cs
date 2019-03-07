@@ -17,7 +17,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("Yauheni Pakala")]
+[assembly: AssemblyCopyright("2019 Yauheni Pakala")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -1,10 +1,11 @@
 ﻿//
 // SeparatorView.cs
 //
-// Author:
-//       Yauheni Pakala <evgeniy.pakalo@gmail.com>
+// C# port created by Yauheni Pakala
+// Copyright (c) 2019
 //
-// Copyright (c) 2019 Yauheni Pakala
+// Original Swift version created by Marli Oshlack
+// Copyright 2018 Airbnb, Inc.
 //
 using System;
 using CoreGraphics;

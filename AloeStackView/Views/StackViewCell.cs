@@ -1,10 +1,11 @@
 ﻿//
 // StackViewCell.cs
 //
-// Author:
-//       Yauheni Pakala <evgeniy.pakalo@gmail.com>
+// C# port created by Yauheni Pakala
+// Copyright (c) 2019
 //
-// Copyright (c) 2019 Yauheni Pakala
+// Original Swift version created by Marli Oshlack
+// Copyright 2018 Airbnb, Inc.
 //
 using System;
 using UIKit;
@@ -19,7 +20,6 @@ namespace AloeStackView.Views
      */
     public class StackViewCell : UIView
     {
-
         #region Lifecycle
 
         public StackViewCell(UIView contentView) : base(CGRect.Empty)
@@ -38,10 +38,7 @@ namespace AloeStackView.Views
             setUpTapGestureRecognizer();
         }
 
-        public StackViewCell(NSCoder coder)
-        {
-            throw new NotImplementedException("init(coder:) has not been implemented");
-        }
+        public StackViewCell(NSCoder coder) => throw new NotImplementedException("ctor(coder:) has not been implemented");
 
         #endregion
 
@@ -61,7 +58,7 @@ namespace AloeStackView.Views
             }
         }
 
-        public UIColor rowHighlightColor => new UIColor(red: 217 / 255, green: 217 / 255, blue: 217 / 255, alpha: 1);
+        public UIColor rowHighlightColor { get; set; } = new UIColor(red: 217 / 255, green: 217 / 255, blue: 217 / 255, alpha: 1);
 
         private UIColor _rowBackgroundColor = UIColor.Clear;
         public UIColor rowBackgroundColor
@@ -159,12 +156,16 @@ namespace AloeStackView.Views
 
         #region Internal
 
-
-        private Action<UIView> tapHandler;
-        // TODO:
-        //internal var tapHandler: ((UIView) -> Void)? {
-        //    didSet { updateTapGestureRecognizerEnabled() }
-        //}
+        private Action<UIView> _tapHandler;
+        internal Action<UIView> tapHandler
+        {
+            get => _tapHandler;
+            set
+            {
+                _tapHandler = value;
+                updateTapGestureRecognizerEnabled();
+            }
+        }
 
         // Whether the separator should be hidden or not for this cell. Note that this doesn't always
         // reflect whether the separator is hidden or not, since, for example, the separator could be
@@ -251,14 +252,14 @@ namespace AloeStackView.Views
 
         private void handleTap()
         {
-            if (contentView != null && contentView.UserInteractionEnabled) return;
+            if (contentView != null && !contentView.UserInteractionEnabled) return;
 
             if (contentView is Tappable tappableView)
             {
                 tappableView.didTapView();
             }
 
-            tapHandler(contentView);
+            tapHandler?.Invoke(contentView);
         }
 
         private void updateTapGestureRecognizerEnabled()
