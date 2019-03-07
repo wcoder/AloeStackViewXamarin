@@ -21,8 +21,8 @@ namespace AloeStackView.Samples.Views
 
         public SwitchRowView() : base(CGRect.Empty)
         {
-            setUpViews();
-            setUpConstraints();
+            SetUpViews();
+            SetUpConstraints();
         }
 
         public SwitchRowView(NSCoder coder) => throw new NotImplementedException("ctor(coder:) has not been implemented");
@@ -35,20 +35,20 @@ namespace AloeStackView.Samples.Views
             set => label.Text = value;
         }
 
-        private void setUpViews()
+        private void SetUpViews()
         {
-            setUpLabel();
-            setUpSwitchView();
+            SetUpLabel();
+            SetUpSwitchView();
         }
 
-        private void setUpLabel()
+        private void SetUpLabel()
         {
             label.TranslatesAutoresizingMaskIntoConstraints = false;
             label.Font = UIFont.PreferredBody;
             AddSubview(label);
         }
 
-        private void setUpSwitchView()
+        private void SetUpSwitchView()
         {
             switchView.TranslatesAutoresizingMaskIntoConstraints = false;
             switchView.ValueChanged += (sender, e) =>
@@ -58,7 +58,7 @@ namespace AloeStackView.Samples.Views
             AddSubview(switchView);
         }
 
-        private void setUpConstraints()
+        private void SetUpConstraints()
         {
             NSLayoutConstraint.ActivateConstraints(new NSLayoutConstraint[]
             { 

@@ -19,14 +19,14 @@ namespace AloeStackView.Protocols
     /// background color automatically change to a highlighted color (or some other custom behavior defined by the row)
     /// when the user is pressing down on them.
     /// </summary>
-    public interface Highlightable
+    public interface IHighlightable
     {
         /// <summary>
         /// Checked when the user touches down on a row to determine if the row should be highlighted.
         /// </summary>
         /// <value>The default implementation of this method always returns `true`.
         /// (use HighlightableExtesions)</value>
-        bool isHighlightable { get; }
+        bool IsHighlightable { get; }
 
         /// <summary>
         /// Called when the highlighted state of the row changes.
@@ -34,18 +34,18 @@ namespace AloeStackView.Protocols
         /// </summary>
         /// <value>The default implementation of this method changes the background color of the row to the `rowHighlightColor`.
         /// (use HighlightableExtesions)</value>
-        void setIsHighlighted(bool isHighlighted);
+        void SetIsHighlighted(bool isHighlighted);
     }
 
     public static class HighlightableExtesions
     {
-        public static bool isHighlightable => true;
+        public static bool IsHighlightable => true;
 
-        public static void setIsHighlighted(this UIView view, bool isHighlighted)
+        public static void SetIsHighlighted(this UIView view, bool isHighlighted)
         {
             if (view.Superview is StackViewCell cell)
             {
-                cell.BackgroundColor = isHighlighted ? cell.rowHighlightColor : cell.rowBackgroundColor;
+                cell.BackgroundColor = isHighlighted ? cell.RowHighlightColor : cell.RowBackgroundColor;
             }
         }
     }

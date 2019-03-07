@@ -19,11 +19,11 @@ namespace AloeStackView.Protocols
     /// This notification can be used to implement default behavior in a view that should always happen
     /// when that view is tapped.
     /// </summary>
-    public interface Tappable
+    public interface ITappable
     {
         /// <summary>
         /// Called when the row is tapped by the user.
         /// </summary>
-        void didTapView();
+        void DidTapView();
     }
 }

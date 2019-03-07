@@ -18,7 +18,7 @@ namespace AloeStackView.Protocols
     /// This behavior can be useful when implementing shared, reusable rows that should always have this
     /// behavior when they are used in an `AloeStackView`.
     /// </summary>
-    public interface SeparatorHiding
+    public interface ISeparatorHiding
     {
     }
 }

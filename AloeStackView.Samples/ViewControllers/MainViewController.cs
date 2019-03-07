@@ -44,7 +44,7 @@ namespace AloeStackView.Samples.ViewControllers
 
         private void SetUpStackView()
         {
-            StackView.automaticallyHidesLastSeparator = true;
+            StackView.AutomaticallyHidesLastSeparator = true;
         }
 
         private void SetUpRows()
@@ -53,7 +53,7 @@ namespace AloeStackView.Samples.ViewControllers
             SetUpSwitchRow();
             SetUpHiddenRows();
             SetUpExpandingRowView();
-            setUpPhotoRow();
+            SetUpPhotoRow();
         }
 
         private void SetUpDescriptionRow()
@@ -64,7 +64,7 @@ namespace AloeStackView.Samples.ViewControllers
                 Lines = 0,
                 Text = "This simple app shows some ways you can use AloeStackView to lay out a screen in your app."
             };
-            StackView.addRow(label);
+            StackView.AddRow(label);
         }
 
         private void SetUpSwitchRow()
@@ -73,9 +73,9 @@ namespace AloeStackView.Samples.ViewControllers
             switchRow.Text = "Show and hide rows with animation";
             switchRow.SwitchChanged += (sender, isOn) =>
             {
-                StackView.setRowsHidden(hiddenRows, isHidden: !isOn, animated: true);
+                StackView.SetRowsHidden(hiddenRows, isHidden: !isOn, animated: true);
             };
-            StackView.addRow(switchRow);
+            StackView.AddRow(switchRow);
         }
 
         private UILabel[] hiddenRows = { new UILabel(), new UILabel(), new UILabel(), new UILabel(), new UILabel() };
@@ -90,57 +90,57 @@ namespace AloeStackView.Samples.ViewControllers
                 row.Text = $"Hidden row {index + 1}";
             }
 
-            StackView.addRows(hiddenRows);
-            StackView.hideRows(hiddenRows);
+            StackView.AddRows(hiddenRows);
+            StackView.HideRows(hiddenRows);
 
             var rowInset = new UIEdgeInsets(
-                top: StackView.rowInset.Top,
-                left: StackView.rowInset.Left * 2f,
-                bottom: StackView.rowInset.Bottom,
-                right: StackView.rowInset.Right);
+                top: StackView.RowInset.Top,
+                left: StackView.RowInset.Left * 2f,
+                bottom: StackView.RowInset.Bottom,
+                right: StackView.RowInset.Right);
 
             var separatorInset = new UIEdgeInsets(
                 top: 0,
-                left: StackView.separatorInset.Left * 2f,
+                left: StackView.SeparatorInset.Left * 2f,
                 bottom: 0,
                 right: 0);
 
-            StackView.setInset(hiddenRows, inset: rowInset);
-            StackView.setSeperatorInset(hiddenRows.SkipLast(1).ToArray(), inset: separatorInset);
+            StackView.SetInset(hiddenRows, inset: rowInset);
+            StackView.SetSeperatorInset(hiddenRows.SkipLast(1).ToArray(), inset: separatorInset);
         }
 
         private void SetUpExpandingRowView()
         {
             var expandingRow = new ExpandingRowView();
-            StackView.addRow(expandingRow);
+            StackView.AddRow(expandingRow);
         }
 
-        private void setUpPhotoRow()
+        private void SetUpPhotoRow()
         {
             var titleLabel = new UILabel();
             titleLabel.Font = UIFont.PreferredBody;
             titleLabel.Lines = 0;
             titleLabel.Text = "Handle user interaction";
-            StackView.addRow(titleLabel);
-            StackView.hideSeparator(titleLabel);
-            StackView.setInset(forRow: titleLabel, inset: new UIEdgeInsets(
-                top: StackView.rowInset.Top,
-                left: StackView.rowInset.Left,
+            StackView.AddRow(titleLabel);
+            StackView.HideSeparator(titleLabel);
+            StackView.SetInset(forRow: titleLabel, inset: new UIEdgeInsets(
+                top: StackView.RowInset.Top,
+                left: StackView.RowInset.Left,
                 bottom: 4,
-                right: StackView.rowInset.Right));
+                right: StackView.RowInset.Right));
 
             var captionLabel = new UILabel();
             captionLabel.Font = UIFont.PreferredCaption2;
             captionLabel.TextColor = UIColor.Blue;
             captionLabel.Lines = 0;
             captionLabel.Text = "(Try tapping on the photo!)";
-            StackView.addRow(captionLabel);
-            StackView.hideSeparator(forRow: captionLabel);
-            StackView.setInset(forRow: captionLabel, inset: new UIEdgeInsets(
+            StackView.AddRow(captionLabel);
+            StackView.HideSeparator(forRow: captionLabel);
+            StackView.SetInset(forRow: captionLabel, inset: new UIEdgeInsets(
                 top: 0,
-                left: StackView.rowInset.Left,
-                bottom: StackView.rowInset.Bottom,
-                right: StackView.rowInset.Right));
+                left: StackView.RowInset.Left,
+                bottom: StackView.RowInset.Bottom,
+                right: StackView.RowInset.Right));
 
             var image = new UIImage(); // TODO: add image
             var aspectRatio = 1; //image.Size.Height / image.Size.Width;
@@ -151,8 +151,8 @@ namespace AloeStackView.Samples.ViewControllers
             imageView.ContentMode = UIViewContentMode.ScaleAspectFit;
             imageView.HeightAnchor.ConstraintEqualTo(imageView.WidthAnchor, multiplier: aspectRatio).Active = true;
 
-            StackView.addRow(imageView);
-            StackView.setTapHandler(imageView, _ =>
+            StackView.AddRow(imageView);
+            StackView.SetTapHandler(imageView, _ =>
             {
                 var alert = UIAlertController.Create("Title ;)", "Tapped", UIAlertControllerStyle.Alert);
                 alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Cancel, null));

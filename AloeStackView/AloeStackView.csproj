@@ -55,9 +55,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Protocols\SeparatorHiding.cs" />
-    <Compile Include="Protocols\Tappable.cs" />
-    <Compile Include="Protocols\Highlightable.cs" />
+    <Compile Include="Protocols\ISeparatorHiding.cs" />
+    <Compile Include="Protocols\ITappable.cs" />
+    <Compile Include="Protocols\IHighlightable.cs" />
     <Compile Include="Views\StackViewCell.cs" />
     <Compile Include="Views\SeparatorView.cs" />
     <Compile Include="AloeStackViewController.cs" />

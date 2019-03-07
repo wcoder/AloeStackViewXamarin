@@ -15,7 +15,7 @@ using Foundation;
 
 namespace AloeStackView.Samples.Views
 {
-    public class ExpandingRowView : UIStackView, Tappable, Highlightable
+    public class ExpandingRowView : UIStackView, ITappable, IHighlightable
     {
         private UILabel titleLabel = new UILabel();
         private UILabel showMoreLabel = new UILabel();
@@ -26,33 +26,33 @@ namespace AloeStackView.Samples.Views
         public ExpandingRowView() : base(CGRect.Empty)
         {
             TranslatesAutoresizingMaskIntoConstraints = false;
-            setUpViews();
+            SetUpViews();
         }
 
         public ExpandingRowView(NSCoder coder) => throw new NotImplementedException("ctor(coder:) has not been implemented");
 
-        private void setUpViews()
+        private void SetUpViews()
         {
-            setUpSelf();
-            setUpTitleLabel();
-            setUpShowMoreLabel();
-            setUpTextLabel();
+            SetUpSelf();
+            SetUpTitleLabel();
+            SetUpShowMoreLabel();
+            SetUpTextLabel();
         }
 
-        private void setUpSelf()
+        private void SetUpSelf()
         {
             Axis = UILayoutConstraintAxis.Vertical;
             Spacing = 4;
         }
 
-        private void setUpTitleLabel()
+        private void SetUpTitleLabel()
         {
             titleLabel.Text = "Dynamically change row content";
             titleLabel.Font = UIFont.PreferredBody;
             AddArrangedSubview(titleLabel);
         }
 
-        private void setUpShowMoreLabel()
+        private void SetUpShowMoreLabel()
         {
             showMoreLabel.Lines = 0;
             showMoreLabel.Text = "(Tap on this row to add more content!)\n";
@@ -61,7 +61,7 @@ namespace AloeStackView.Samples.Views
             AddArrangedSubview(showMoreLabel);
         }
 
-        private void setUpTextLabel()
+        private void SetUpTextLabel()
         {
             textLabel.Lines = 0;
             textLabel.Font = UIFont.PreferredCaption2;
@@ -69,9 +69,9 @@ namespace AloeStackView.Samples.Views
             AddArrangedSubview(textLabel);
         }
 
-        public bool isHighlightable => HighlightableExtesions.isHighlightable;
+        public bool IsHighlightable => HighlightableExtesions.IsHighlightable;
 
-        public void didTapView()
+        public void DidTapView()
         {
             textLabel.Text = (textLabel.Text ?? "") + lines[nextLine];
             nextLine += 1;
@@ -81,7 +81,7 @@ namespace AloeStackView.Samples.Views
             }
         }
 
-        public void setIsHighlighted(bool isHighlighted) => HighlightableExtesions.setIsHighlighted(this, isHighlighted);
+        public void SetIsHighlighted(bool isHighlighted) => HighlightableExtesions.SetIsHighlighted(this, isHighlighted);
 
         private string[] lines =
         {

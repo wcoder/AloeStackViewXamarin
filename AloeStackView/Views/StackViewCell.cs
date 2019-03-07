@@ -15,9 +15,9 @@ using AloeStackView.Protocols;
 
 namespace AloeStackView.Views
 {
-    /*
-     * A view that wraps every row in a stack view.
-     */
+    /// <summary>
+    /// A view that wraps every row in a stack view.
+    /// </summary>
     public class StackViewCell : UIView
     {
         #region Lifecycle
@@ -33,9 +33,9 @@ namespace AloeStackView.Views
                 InsetsLayoutMarginsFromSafeArea = false;
             }
 
-            setUpViews();
-            setUpConstraints();
-            setUpTapGestureRecognizer();
+            SetUpViews();
+            SetUpConstraints();
+            SetUpTapGestureRecognizer();
         }
 
         public StackViewCell(NSCoder coder) => throw new NotImplementedException("ctor(coder:) has not been implemented");
@@ -58,10 +58,10 @@ namespace AloeStackView.Views
             }
         }
 
-        public UIColor rowHighlightColor { get; set; } = new UIColor(red: 217 / 255, green: 217 / 255, blue: 217 / 255, alpha: 1);
+        public UIColor RowHighlightColor { get; set; } = new UIColor(red: 217 / 255, green: 217 / 255, blue: 217 / 255, alpha: 1);
 
         private UIColor _rowBackgroundColor = UIColor.Clear;
-        public UIColor rowBackgroundColor
+        public UIColor RowBackgroundColor
         {
             get => _rowBackgroundColor;
             set
@@ -71,36 +71,36 @@ namespace AloeStackView.Views
             }
         }
 
-        public UIEdgeInsets rowInset
+        public UIEdgeInsets RowInset
         {
             get => LayoutMargins;
             set => LayoutMargins = value;
         }
 
-        public UIColor separatorColor
+        public UIColor SeparatorColor
         {
             get => separatorView.Color;
             set => separatorView.Color = value;
         }
 
-        public nfloat separatorHeight
+        public nfloat SeparatorHeight
         {
             get => separatorView.Height;
             set => separatorView.Height = value;
         }
 
         private UIEdgeInsets _separatorInset = UIEdgeInsets.Zero;
-        public UIEdgeInsets separatorInset
+        public UIEdgeInsets SeparatorInset
         {
             get => _separatorInset;
             set
             {
                 _separatorInset = value;
-                updateSeparatorInset();
+                UpdateSeparatorInset();
             }
         }
 
-        public bool isSeparatorHidden
+        public bool IsSeparatorHidden
         {
             get => separatorView.Hidden;
             set => separatorView.Hidden = value;
@@ -122,9 +122,9 @@ namespace AloeStackView.Views
 
             if (contentView != null && contentView.UserInteractionEnabled) return;
 
-            if (contentView is Highlightable highlightable && highlightable.isHighlightable)
+            if (contentView is IHighlightable highlightable && highlightable.IsHighlightable)
             {
-                contentView.setIsHighlighted(true);
+                contentView.SetIsHighlighted(true);
             }
         }
 
@@ -134,9 +134,9 @@ namespace AloeStackView.Views
 
             if (contentView != null && contentView.UserInteractionEnabled) return;
 
-            if (contentView is Highlightable highlightable && highlightable.isHighlightable)
+            if (contentView is IHighlightable highlightable && highlightable.IsHighlightable)
             {
-                contentView.setIsHighlighted(false);
+                contentView.SetIsHighlighted(false);
             }
         }
 
@@ -146,9 +146,9 @@ namespace AloeStackView.Views
 
             if (contentView != null && contentView.UserInteractionEnabled) return;
 
-            if (contentView is Highlightable highlightable && highlightable.isHighlightable)
+            if (contentView is IHighlightable highlightable && highlightable.IsHighlightable)
             {
-                contentView.setIsHighlighted(false);
+                contentView.SetIsHighlighted(false);
             }
         }
 
@@ -157,13 +157,13 @@ namespace AloeStackView.Views
         #region Internal
 
         private Action<UIView> _tapHandler;
-        internal Action<UIView> tapHandler
+        internal Action<UIView> TapHandler
         {
             get => _tapHandler;
             set
             {
                 _tapHandler = value;
-                updateTapGestureRecognizerEnabled();
+                UpdateTapGestureRecognizerEnabled();
             }
         }
 
@@ -171,7 +171,7 @@ namespace AloeStackView.Views
         // reflect whether the separator is hidden or not, since, for example, the separator could be
         // hidden because it's the last row in the stack view and
         // `automaticallyHidesLastSeparator` is `true`.
-        public bool shouldHideSeparator = false;
+        public bool shouldHideSeparator;
 
         #endregion
 
@@ -183,36 +183,36 @@ namespace AloeStackView.Views
         private NSLayoutConstraint separatorLeadingConstraint;
         private NSLayoutConstraint separatorTrailingConstraint;
 
-        private void setUpViews()
+        private void SetUpViews()
         {
-            setUpSelf();
-            setUpContentView();
-            setUpSeparatorView();
+            SetUpSelf();
+            SetUpContentView();
+            SetUpSeparatorView();
         }
 
-        private void setUpSelf()
+        private void SetUpSelf()
         {
             ClipsToBounds = true;
         }
 
-        private void setUpContentView()
+        private void SetUpContentView()
         {
             contentView.TranslatesAutoresizingMaskIntoConstraints = false;
             AddSubview(contentView);
         }
 
-        private void setUpSeparatorView()
+        private void SetUpSeparatorView()
         {
             AddSubview(separatorView);
         }
 
-        private void setUpConstraints()
+        private void SetUpConstraints()
         {
-            setUpContentViewConstraints();
-            setUpSeparatorViewConstraints();
+            SetUpContentViewConstraints();
+            SetUpSeparatorViewConstraints();
         }
 
-        private void setUpContentViewConstraints()
+        private void SetUpContentViewConstraints()
         {
             var bottomConstraint = contentView.BottomAnchor.ConstraintEqualTo(LayoutMarginsGuide.BottomAnchor);
             bottomConstraint.Priority = (float)UILayoutPriority.Required - 1;
@@ -226,7 +226,7 @@ namespace AloeStackView.Views
             });
         }
 
-        private void setUpSeparatorViewConstraints()
+        private void SetUpSeparatorViewConstraints()
         {
             var leadingConstraint = separatorView.LeadingAnchor.ConstraintEqualTo(LeadingAnchor);
             var trailingConstraint = separatorView.TrailingAnchor.ConstraintEqualTo(TrailingAnchor);
@@ -242,40 +242,40 @@ namespace AloeStackView.Views
             separatorTrailingConstraint = trailingConstraint;
         }
 
-        private void setUpTapGestureRecognizer()
+        private void SetUpTapGestureRecognizer()
         {
-            tapGestureRecognizer.AddTarget(handleTap);
+            tapGestureRecognizer.AddTarget(HandleTap);
             AddGestureRecognizer(tapGestureRecognizer);
 
-            updateTapGestureRecognizerEnabled();
+            UpdateTapGestureRecognizerEnabled();
         }
 
-        private void handleTap()
+        private void HandleTap()
         {
             if (contentView != null && !contentView.UserInteractionEnabled) return;
 
-            if (contentView is Tappable tappableView)
+            if (contentView is ITappable tappableView)
             {
-                tappableView.didTapView();
+                tappableView.DidTapView();
             }
 
-            tapHandler?.Invoke(contentView);
+            TapHandler?.Invoke(contentView);
         }
 
-        private void updateTapGestureRecognizerEnabled()
+        private void UpdateTapGestureRecognizerEnabled()
         {
-            tapGestureRecognizer.Enabled = contentView is Tappable || tapHandler != null;
+            tapGestureRecognizer.Enabled = contentView is ITappable || TapHandler != null;
         }
 
-        private void updateSeparatorInset()
+        private void UpdateSeparatorInset()
         {
             if (separatorLeadingConstraint != null)
             {
-                separatorLeadingConstraint.Constant = separatorInset.Left;
+                separatorLeadingConstraint.Constant = SeparatorInset.Left;
             }
             if (separatorTrailingConstraint != null)
             {
-                separatorTrailingConstraint.Constant = -separatorInset.Right;
+                separatorTrailingConstraint.Constant = -SeparatorInset.Right;
             }
         }
 

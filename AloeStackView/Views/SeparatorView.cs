@@ -14,7 +14,7 @@ using Foundation;
 
 namespace AloeStackView.Views
 {
-    public class SeparatorView : UIView
+    internal class SeparatorView : UIView
     {
         #region Lifecycle
 
@@ -23,10 +23,7 @@ namespace AloeStackView.Views
             TranslatesAutoresizingMaskIntoConstraints = false;
         }
 
-        public SeparatorView(NSCoder coder)
-        {
-            throw new NotImplementedException("init(coder:) has not been implemented");
-        }
+        public SeparatorView(NSCoder coder) => throw new NotImplementedException("ctor(coder:) has not been implemented");
 
         #endregion
 
