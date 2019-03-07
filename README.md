@@ -128,9 +128,9 @@ Tyler Hedrick, Michael Bachand, Laura Skelton, Dan Federman, and John Pottebaum.
 
 ## License
 
-`AloeStackViewXamarin` is released under the Apache License 2.0. See LICENSE for details.
+`AloeStackViewXamarin` is released under the MIT License. See [LICENSE](LICENSE) for details.
 
-`AloeStackView` is released under the Apache License 2.0. See LICENSE for details.
+`AloeStackView` is released under the Apache License 2.0. See [NOTICE](NOTICE.txt) for details.
 
 ## Why is it called AloeStackView?
 
