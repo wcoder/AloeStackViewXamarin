@@ -5,10 +5,10 @@
 //
 using Foundation;
 
-namespace AloeStackView.Samples
+namespace AloeStackView.Samples.ViewControllers
 {
     [Register("ViewController")]
-    partial class ViewController
+    partial class MainViewController
     {
         void ReleaseDesignerOutlets()
         {

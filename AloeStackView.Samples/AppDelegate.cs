@@ -1,11 +1,10 @@
 ﻿//
 // AppDelegate.cs
 //
-// Author:
-//       Yauheni Pakala <evgeniy.pakalo@gmail.com>
+// C# port created by Yauheni Pakala
+// Copyright (c) 2019
 //
-// Copyright (c) 2019 Yauheni Pakala
-//
+using AloeStackView.Samples.ViewControllers;
 using Foundation;
 using UIKit;
 
@@ -16,18 +15,20 @@ namespace AloeStackView.Samples
     [Register("AppDelegate")]
     public class AppDelegate : UIApplicationDelegate
     {
-        // class-level declarations
-
-        public override UIWindow Window
-        {
-            get;
-            set;
-        }
+        public override UIWindow Window { get; set; }
 
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
         {
             // Override point for customization after application launch.
             // If not required for your application you can safely delete this method
+
+            Window = new UIWindow(UIScreen.MainScreen.Bounds);
+
+            var homeViewController = new MainViewController();
+            var navigationController = new UINavigationController(rootViewController: homeViewController);
+
+            Window.RootViewController = navigationController;
+            Window.MakeKeyAndVisible();
 
             return true;
         }
