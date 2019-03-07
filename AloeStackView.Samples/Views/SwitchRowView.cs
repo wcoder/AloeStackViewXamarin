@@ -66,8 +66,8 @@ namespace AloeStackView.Samples.Views
                 label.BottomAnchor.ConstraintEqualTo(BottomAnchor),
                 label.LeadingAnchor.ConstraintEqualTo(LeadingAnchor),
                 switchView.LeadingAnchor.ConstraintEqualTo(label.TrailingAnchor, 8),
-                switchView.TrailingAnchor.ConstraintEqualTo(TrailingAnchor, 8),
-                switchView.CenterYAnchor.ConstraintEqualTo(CenterYAnchor)
+                switchView.TrailingAnchor.ConstraintEqualTo(TrailingAnchor, -2),
+                switchView.CenterYAnchor.ConstraintEqualTo(CenterYAnchor, -1)
             });
         }
     }
