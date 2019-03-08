@@ -73,14 +73,18 @@ namespace AloeStackView
             InsertCell(row, 0, animated);
         }
 
-        // TODO: port
+        /// <summary>
         /// Adds multiple rows to the beginning of the stack view.
-        ///
-        /// If `animated` is `true`, the insertions are animated.
-        //open func prependRows(_ rows: [UIView], animated: Bool = false)
-        //{
-        //    rows.reversed().forEach { prependRow($0, animated: animated) }
-        //}
+        /// </summary>
+        /// <param name="rows">Rows.</param>
+        /// <param name="animated">If <c>true</c>, the insertions are animated.</param>
+        public void PrependRows(UIView[] rows, bool animated = false)
+        {
+            foreach (var row in rows.Reverse())
+            {
+                PrependRow(row, animated);
+            }
+        }
 
         /// Inserts a row above the specified row in the stack view.
         ///
@@ -100,7 +104,7 @@ namespace AloeStackView
         /// Inserts multiple rows above the specified row in the stack view.
         ///
         /// If `animated` is `true`, the insertions are animated.
-        public void InsertRowsBefore(UIView[] rows, UIView beforeRow, bool animated)
+        public void InsertRowsBefore(UIView[] rows, UIView beforeRow, bool animated = false)
         {
             foreach (var row in rows)
             {
@@ -123,22 +127,26 @@ namespace AloeStackView
             }
         }
 
-        // TODO: port
+        /// <summary>
         /// Inserts multiple rows below the specified row in the stack view.
-        ///
-        /// If `animated` is `true`, the insertions are animated.
-        //  open func insertRows(_ rows: [UIView], after afterRow: UIView, animated: Bool = false)
-        //  {
-        //      _ = rows.reduce(afterRow) {
-        //          currentAfterRow, row in
-        //insertRow(row, after: currentAfterRow, animated: animated)
-        //      return row
-        //    }
-        //}
+        /// </summary>
+        /// <param name="rows">Rows.</param>
+        /// <param name="afterRow">After row.</param>
+        /// <param name="animated">If set to <c>true</c>, the insertions are animated.</param>
+        public void InsertRowsAfter(UIView[] rows, UIView afterRow, bool animated = false)
+        {
+            var _ = rows.Aggregate(afterRow, (currentAfterRow, row) =>
+            {
+                InsertRowAfter(row, currentAfterRow, animated: animated);
+                return row; 
+            });
+        }
 
+        /// <summary>
         /// Removes the given row from the stack view.
-        ///
-        /// If `animated` is `true`, the removal is animated.
+        /// </summary>
+        /// <param name="row">Row.</param>
+        /// <param name="animated">If set to <c>true</c>, the removal is animated.</param>
         public void RemoveRow(UIView row, bool animated = false)
         {
             if (row.Superview is StackViewCell cell)
@@ -147,9 +155,11 @@ namespace AloeStackView
             }
         }
 
+        /// <summary>
         /// Removes the given rows from the stack view.
-        ///
-        /// If `animated` is `true`, the removals are animated.
+        /// </summary>
+        /// <param name="rows">Rows.</param>
+        /// <param name="animated">If set to <c>true</c>, the removals are animated.</param>
         public void RemoveRows(UIView[] rows, bool animated = false)
         {
             foreach (var row in rows)
@@ -158,9 +168,10 @@ namespace AloeStackView
             }
         }
 
+        /// <summary>
         /// Removes all the rows in the stack view.
-        ///
-        /// If `animated` is `true`, the removals are animated.
+        /// </summary>
+        /// <param name="animated">If set to <c>true</c>, the removals are animated.</param>
         public void RemoveAllRows(bool animated = false)
         {
             foreach (var view in stackView.ArrangedSubviews)
