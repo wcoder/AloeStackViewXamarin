@@ -1,5 +1,7 @@
 # AloeStackViewXamarin
 
+[![Build status](https://dev.azure.com/yauhenipakala/My%20OS%20projects/_apis/build/status/AloeStackViewXamarin-CI)](https://dev.azure.com/yauhenipakala/My%20OS%20projects/_build/latest?definitionId=5)
+
 C# port of [airbnb/AloeStackView](https://github.com/airbnb/AloeStackView) v1.0.1.
 
 A simple class for laying out a collection of views with a convenient API, while leveraging the power of Auto Layout.
@@ -8,7 +10,9 @@ A simple class for laying out a collection of views with a convenient API, while
 
 ## Installation
 
-> TODO: NuGet
+```
+PM> Install-Package AloeStackViewXamarin
+```
 
 ## Introduction
 
