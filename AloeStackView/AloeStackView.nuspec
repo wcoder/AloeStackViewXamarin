@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>AloeStackViewXamarin</id>
+    <version>1.0.1</version>
+    <title>AloeStackView for Xamarin.iOS</title>
+    <authors>Marli Oshlack, Yauheni Pakala</authors>
+    <owners>Yauheni Pakala</owners>
+    <licenseUrl>https://github.com/wcoder/AloeStackViewXamarin/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/wcoder/AloeStackViewXamarin</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Xamarin iOS library of AloeStackView - is a class that allows a collection of views to be laid out in a vertical list.</description>
+    <tags>stackview ios xamarin port library uikit ui airbnb aloestackview</tags>
+    <releaseNotes>First release</releaseNotes>
+  </metadata>
+</package>
